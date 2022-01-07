@@ -1,0 +1,87 @@
+# Source: jump-app/charts/jump-app-micros/templates/istio/virtualservice.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: back-golang
+spec:
+  gateways:
+  - back-golang
+  - mesh
+  hosts:
+  - back-golang-istio-system.apps.cluster-dxv42.dxv42.sandbox1618.opentlc.com
+  - back-golang
+  http:
+  - route:
+      - destination:
+          host: back-golang.jump-app.svc.cluster.local
+          subset: v1
+        weight: 60
+      - destination:
+          host: back-golang.jump-app.svc.cluster.local
+          subset: v2
+        weight: 40
+---
+# Source: jump-app/charts/jump-app-micros/templates/istio/virtualservice.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: back-python
+spec:
+  gateways:
+  - mesh
+  hosts:
+  - back-python
+  http:
+  - route:
+      - destination:
+          host: back-python.jump-app.svc.cluster.local
+          subset: v1
+        weight: 60
+      - destination:
+          host: back-python.jump-app.svc.cluster.local
+          subset: v2
+        weight: 40
+---
+# Source: jump-app/charts/jump-app-micros/templates/istio/virtualservice.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: back-springboot
+spec:
+  gateways:
+  - mesh
+  hosts:
+  - back-springboot
+  http:
+  - route:
+      - destination:
+          host: back-springboot.jump-app.svc.cluster.local
+          subset: v1
+        weight: 60
+      - destination:
+          host: back-springboot.jump-app.svc.cluster.local
+          subset: v2
+        weight: 40
+---
+# Source: jump-app/charts/jump-app-micros/templates/istio/virtualservice.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: front-javascript
+spec:
+  gateways:
+  - front-javascript
+  - mesh
+  hosts:
+  - front-javascript-istio-system.apps.cluster-dxv42.dxv42.sandbox1618.opentlc.com
+  - front-javascript
+  http:
+  - route:
+      - destination:
+          host: front-javascript.jump-app.svc.cluster.local
+          subset: v1
+        weight: 60
+      - destination:
+          host: front-javascript.jump-app.svc.cluster.local
+          subset: v2
+        weight: 40
