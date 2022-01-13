@@ -35,7 +35,7 @@ oc apply -f 02-service-mesh-members-roll.yaml
 - Deploy the application
 
 ```$bash
-oc apply -n jump-app -f 03-jump-app-deploy.yaml
+oc apply -f 03-jump-app-deploy.yaml
 ```
 
 NOTE: It is required the correct Openshift applications domain is defined in every object properly 
