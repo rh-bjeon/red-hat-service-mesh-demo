@@ -162,7 +162,7 @@ spec:
         version: v1
     spec:
       containers:
-      - image: quay.io/acidonpe/jump-app-back-python:latest
+      - image: quay.io/acidonpe/jump-app-back-python:latest # Use quay.io/fperea_rh/back-python:v1.0.0 for faulty use cases 
         imagePullPolicy: Always
         name: back-python-v1
         ports:

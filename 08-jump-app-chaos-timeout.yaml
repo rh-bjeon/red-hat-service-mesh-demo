@@ -11,7 +11,8 @@ spec:
   - back-golang-istio-system.apps.cluster-dxv42.dxv42.sandbox1618.opentlc.com
   - back-golang
   http:
-  - route:
+  - timeout: 0.5s
+    route:
       - destination:
           host: back-golang.jump-app.svc.cluster.local
           subset: v1
@@ -20,11 +21,6 @@ spec:
           host: back-golang.jump-app.svc.cluster.local
           subset: v2
         weight: 100
-    fault:
-      delay:
-        fixedDelay: 3s
-        percentage:
-          value: 100
 ---
 # Source: jump-app/charts/jump-app-micros/templates/istio/virtualservice.yaml
 apiVersion: networking.istio.io/v1alpha3
@@ -58,8 +54,7 @@ spec:
   hosts:
   - back-springboot
   http:
-  - timeout: 0.5s
-    route:
+  - route:
       - destination:
           host: back-springboot.jump-app.svc.cluster.local
           subset: v1
@@ -68,6 +63,11 @@ spec:
           host: back-springboot.jump-app.svc.cluster.local
           subset: v2
         weight: 100
+    fault:
+      delay:
+        fixedDelay: 3s
+        percentage:
+          value: 100
 ---
 # Source: jump-app/charts/jump-app-micros/templates/istio/virtualservice.yaml
 apiVersion: networking.istio.io/v1alpha3
