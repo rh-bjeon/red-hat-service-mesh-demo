@@ -8,18 +8,18 @@ spec:
   - back-golang
   - mesh
   hosts:
-  - back-golang-istio-system.apps.cluster-dxv42.dxv42.sandbox1618.opentlc.com
+  - back-golang-istio-system.apps.$EXTERNAL_DOMAIN
   - back-golang
   http:
   - route:
       - destination:
           host: back-golang.jump-app.svc.cluster.local
           subset: v1
-        weight: 50
+        weight: 0
       - destination:
           host: back-golang.jump-app.svc.cluster.local
           subset: v2
-        weight: 50
+        weight: 100
 ---
 # Source: jump-app/charts/jump-app-micros/templates/istio/virtualservice.yaml
 apiVersion: networking.istio.io/v1alpha3
@@ -35,6 +35,17 @@ spec:
   - route:
       - destination:
           host: back-python.jump-app.svc.cluster.local
+          subset: v1
+        weight: 0
+      - destination:
+          host: back-python.jump-app.svc.cluster.local
+          subset: v2
+        weight: 100
+    fault:
+      delay:
+        fixedDelay: 3s
+        percentage:
+          value: 50
 ---
 # Source: jump-app/charts/jump-app-micros/templates/istio/virtualservice.yaml
 apiVersion: networking.istio.io/v1alpha3
@@ -51,11 +62,11 @@ spec:
       - destination:
           host: back-springboot.jump-app.svc.cluster.local
           subset: v1
-        weight: 50
+        weight: 0
       - destination:
           host: back-springboot.jump-app.svc.cluster.local
           subset: v2
-        weight: 50
+        weight: 100
 ---
 # Source: jump-app/charts/jump-app-micros/templates/istio/virtualservice.yaml
 apiVersion: networking.istio.io/v1alpha3
@@ -67,30 +78,15 @@ spec:
   - front-javascript
   - mesh
   hosts:
-  - front-javascript-istio-system.apps.cluster-dxv42.dxv42.sandbox1618.opentlc.com
+  - front-javascript-istio-system.apps.fperod.054e.sandbox89.opentlc.com
   - front-javascript
   http:
   - route:
       - destination:
           host: front-javascript.jump-app.svc.cluster.local
           subset: v1
-        weight: 50
+        weight: 0
       - destination:
           host: front-javascript.jump-app.svc.cluster.local
           subset: v2
-        weight: 50
----
-# Source: jump-app/charts/jump-app-micros/templates/istio/destinationrule.yaml
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: back-python
-spec:
-  host: back-python.jump-app.svc.cluster.local
-  subsets:
-  - name: v1
-    labels:
-      version: v1
-  - name: v2
-    labels:
-      version: v2
+        weight: 100
