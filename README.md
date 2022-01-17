@@ -121,6 +121,7 @@ oc apply -n jump-app -f 08-jump-app-chaos-timeout.yaml
 ## Circuit Breaking & Outlier Detection
 
 ### Circuit Breaking
+
 In this scenario, it is introduced a circuit breaking rule in order to limit the impact of failures and latency spikes. The idea is to configure the Python service in order to limit to a single connection and request to it.
 
 ```$bash
@@ -131,41 +132,49 @@ oc apply -n jump-app -f 09-jump-app-chaos-circuit-breaking.yaml
 In Kiali, there is a 'ray' icon in the back-python application square that identify the presence of a CB definition.
 
 Check that the jumpapp application is working properly:
+
 ```$bash
 while true; do curl -k 'https://back-golang-istio-system.apps.${EXTERNAL_DOMAIN}/jump' --data-raw '{"message":"hello","jump_path":"/jump","last_path":"/jump","jumps":["http://back-springboot:8443","http://back-python:8444"]}' ; echo " "; sleep 0.5 ; done
 ```
 
 Let’s now generate some load by adding a 10 clients calling out jumpapp app:
+
 ```$bash
 seq 1 10 | xargs -n1 -P10 curl -k 'https://back-golang-istio-system.apps.${EXTERNAL_DOMAIN}/jump' --data-raw '{"message":"hello","jump_path":"/jump","last_path":"/jump","jumps":["http://back-springboot:8443","http://back-python:8444"]}'
 ```
 
-
 ### Outlier Detection
+
 In this scenario, it is introduced a circuit breaking rule in order to avoid sending connections to an unavailable service. The idea is to configure the Python destination rule in order to be able to detect errors and avoid sending requests to this failed microservice.
 
 Two replicas of each service will be deployed:
+
 ```$bash
 oc scale -n jump-app deploy back-python-v1 --replicas=2
 oc scale -n jump-app deploy back-python-v2 --replicas=2
 ```
 
 Then, let’s randomly make one pod of our back-python service to fail by executing:
+
 ```$bash
 oc exec -n jump-app $(oc get pods -o NAME | grep back-python-v1 | tail -n 1) -- curl -s localhost:8080/faulty -X POST
 ```
 
 And run some tests now. Let’s have a look at the output as there will be some failures comming from an unknown (yet) back-python pod:
+
 ```$bash
 while true; do date +%H:%M:%S ; curl -k 'https://back-golang-istio-system.apps.${EXTERNAL_DOMAIN}/jump' --data-raw '{"message":"hello","jump_path":"/jump","last_path":"/jump","jumps":["http://back-springboot:8443","http://back-python:8444"]}' ; echo " "; sleep 1; done
 ```
 
 It is time to make our services mesh more resiliant and see the effect of applying an OutlierDetection policy over back-python service:
+
 ```$bash
 oc apply -n jump-app -f 09-jump-app-chaos-circuit-breaking-base.yaml
 oc apply -n jump-app -f 09-jump-app-chaos-outlier-detection.yaml
 ```
+
 ## Author
 
 Asier Cidon @RedHat
+
 Fran Perea @RedHat
