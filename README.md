@@ -168,3 +168,4 @@ oc apply -n jump-app -f 09-jump-app-chaos-outlier-detection.yaml
 ## Author
 
 Asier Cidon @RedHat
+Fran Perea @RedHat
