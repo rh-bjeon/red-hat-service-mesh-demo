@@ -87,11 +87,11 @@ spec:
   template:
     metadata:
       annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         name: back-golang-v1
         app: back-golang
         version: v1
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - image: quay.io/acidonpe/jump-app-back-golang:latest
@@ -120,12 +120,11 @@ spec:
       app: back-golang
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         name: back-golang-v2
         app: back-golang
         version: v2
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - image: quay.io/acidonpe/jump-app-back-golang:latest
@@ -154,12 +153,11 @@ spec:
       app: back-python
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         name: back-python-v1
         app: back-python
         version: v1
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - image: quay.io/acidonpe/jump-app-back-python:latest # Use quay.io/fperea_rh/back-python:v1.0.0 for faulty use cases 
@@ -188,12 +186,11 @@ spec:
       app: back-python
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         name: back-python-v2
         app: back-python
         version: v2
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - image: quay.io/acidonpe/jump-app-back-python:latest
@@ -222,12 +219,11 @@ spec:
       app: back-springboot
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         name: back-springboot-v1
         app: back-springboot
         version: v1
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - image: quay.io/acidonpe/jump-app-back-springboot:latest
@@ -260,12 +256,11 @@ spec:
       app: back-springboot
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         name: back-springboot-v2
         app: back-springboot
         version: v2
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - image: quay.io/acidonpe/jump-app-back-springboot:latest
@@ -298,12 +293,11 @@ spec:
       app: front-javascript
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         name: front-javascript-v1
         app: front-javascript
         version: v1
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - image: quay.io/acidonpe/jump-app-front-javascript:latest
@@ -342,12 +336,11 @@ spec:
       app: front-javascript
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         name: front-javascript-v2
         app: front-javascript
         version: v2
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - image: quay.io/acidonpe/jump-app-front-javascript:latest
