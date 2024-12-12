@@ -230,7 +230,7 @@ spec:
         imagePullPolicy: Always
         name: back-springboot-v1
         ports:
-          - containerPort: 8443
+          - containerPort: 8080
             protocol: TCP
           - containerPort: 8443
             protocol: TCP
@@ -267,7 +267,7 @@ spec:
         imagePullPolicy: Always
         name: back-springboot-v2
         ports:
-          - containerPort: 8443
+          - containerPort: 8080
             protocol: TCP
           - containerPort: 8443
             protocol: TCP
